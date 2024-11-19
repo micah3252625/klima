@@ -9,6 +9,7 @@ import {
   useWeatherQuery,
 } from "../hooks/useWeather";
 import CurrentWeather from "../components/CurrentWeather";
+import HourlyTemperature from "../components/HourlyTemperature";
 
 const WeatherDashboard = () => {
   // Custom hooks to fetch current location
@@ -94,14 +95,27 @@ const WeatherDashboard = () => {
     <section className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>
-        <Button variant={"outline"} size={"icon"} onClick={handleRefresh} disabled={weatherQuery.isFetching || forecastQuery.isFetching}>
-          <RefreshCw className={`h-4 w-4 ${weatherQuery.isFetching?"animate-spin": ""}`} />
+        <Button
+          variant={"outline"}
+          size={"icon"}
+          onClick={handleRefresh}
+          disabled={weatherQuery.isFetching || forecastQuery.isFetching}
+        >
+          <RefreshCw
+            className={`h-4 w-4 ${
+              weatherQuery.isFetching ? "animate-spin" : ""
+            }`}
+          />
         </Button>
       </div>
 
       <div className="grid gap-6">
-        <div>
-          <CurrentWeather data={weatherQuery.data} locationName={locationName} />
+        <div className="flex flex-col lg:flex-row gap-4">
+          <CurrentWeather
+            data={weatherQuery.data}
+            locationName={locationName}
+          />
+          <HourlyTemperature data={forecastQuery.data} />
           {/* Hourly Temperature */}
         </div>
         <div>
@@ -109,7 +123,6 @@ const WeatherDashboard = () => {
           {/* Forecast */}
         </div>
       </div>
-
     </section>
   );
 };

@@ -10,6 +10,7 @@ import {
 } from "../hooks/useWeather";
 import CurrentWeather from "../components/CurrentWeather";
 import HourlyTemperature from "../components/HourlyTemperature";
+import WeatherDetails from "../components/WeatherDetails";
 
 const WeatherDashboard = () => {
   // Custom hooks to fetch current location
@@ -119,7 +120,7 @@ const WeatherDashboard = () => {
           {/* Hourly Temperature */}
         </div>
         <div>
-          {/* Details */}
+          <WeatherDetails data={weatherQuery.data} />
           {/* Forecast */}
         </div>
       </div>

@@ -98,5 +98,3 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
     </Card>
   );
 }
-
-export default WeatherForecast

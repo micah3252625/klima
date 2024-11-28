@@ -1,18 +1,21 @@
-import { Compass, Gauge, Sunrise, Sunset } from "lucide-react";
-import type { WeatherData } from "../api/types";
-import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Sunrise, Sunset, Compass, Gauge } from "lucide-react";
+import { format } from "date-fns";
+import type { WeatherData } from "../api/types";
 
 interface WeatherDetailsProps {
   data: WeatherData;
 }
 
-const WeatherDetails = ({ data }: WeatherDetailsProps) => {
+export function WeatherDetails({ data }: WeatherDetailsProps) {
   const { wind, main, sys } = data;
+
   // Format time using date-fns
   const formatTime = (timestamp: number) => {
     return format(new Date(timestamp * 1000), "h:mm a");
   };
+
+  // Convert wind degree to direction
   const getWindDirection = (degree: number) => {
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
     const index =
@@ -50,28 +53,26 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
+        <CardTitle>Weather Details</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid gap-6 sm:grid-cols-2">
-          {details.map((detail) => {
-            return (
-              <div
-                key={detail.title}
-                className="flex items-center gap-3 rounded-lg border p-4"
-              >
-                <detail.icon className={`h-5 w-5 ${detail.color}`} />
-                <div>
-                  <p className="text-sm font-medium leading-none">{detail.title}</p>
-                  <p className="tex-sm text-muted-foreground">{detail.value}</p>
-                </div>
+          {details.map((detail) => (
+            <div
+              key={detail.title}
+              className="flex items-center gap-3 rounded-lg border p-4"
+            >
+              <detail.icon className={`h-5 w-5 ${detail.color}`} />
+              <div>
+                <p className="text-sm font-medium leading-none">
+                  {detail.title}
+                </p>
+                <p className="text-sm text-muted-foreground">{detail.value}</p>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>
   );
-};
-
-export default WeatherDetails;
+}
